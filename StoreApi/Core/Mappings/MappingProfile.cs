@@ -10,6 +10,7 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<CreateCustomerRequest, Customer>();
+        CreateMap<UpdateCustomerRequest, Customer>();
         CreateMap<Customer, CustomerResponse>();
     }
 }
