@@ -3,8 +3,7 @@ using StoreApi.Core.Customers;
 using StoreApi.Core.Customers.Requests;
 using StoreApi.Core.Customers.Responses;
 
-namespace StoreApi.Web
-{
+namespace StoreApi.Web;
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
@@ -24,11 +23,11 @@ namespace StoreApi.Web
         }
 
         // GET: api/Customers/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        [HttpGet("{id:guid}", Name = "Get")]
+       public async Task<CustomerResponse> Get(Guid id)
+            {
+                return await _customerRepository.GetCustomerAsync(id);
+            }
 
         // POST: api/Customers
         [HttpPost]
@@ -39,14 +38,17 @@ namespace StoreApi.Web
 
         // PUT: api/Customers/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<CustomerResponse> Put(Guid id, [FromBody] UpdateCustomerRequest value)
         {
+            value.Id = id;
+            return await _customerRepository.UpdateCustomerAsync(value);
+            
         }
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(Guid id)
         {
+            await _customerRepository.DeleteCustomerAsync(id);
         }
     }
-}

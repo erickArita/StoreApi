@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StoreApi.Core.Customers.Requests;
 using StoreApi.Core.Customers.Responses;
@@ -33,6 +35,27 @@ public class CustomerRepository : ICustomerRepository
         var customer = await _customerContext.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
         return _mapper.Map<CustomerResponse>(customer);
     }
+
+    public async Task DeleteCustomerAsync(Guid id)
+    {
+        var customer = await _customerContext.Customers.Where(c => c.Id == id).FirstOrDefaultAsync();
+
+        if (customer == null)
+        {
+            throw new Exception("Customer not found");
+        }
+         _customerContext.Customers.Remove(customer);
+        await _customerContext.SaveChangesAsync();
+    }
+
+    public Task<CustomerResponse> UpdateCustomerAsync(UpdateCustomerRequest request)
+    {
+        var customer = _mapper.Map<Customer>(request);
+        _customerContext.Customers.Update(customer);
+        _customerContext.SaveChanges();
+        return Task.FromResult(_mapper.Map<CustomerResponse>(customer));
+    }
+
 
     public async Task<IEnumerable<CustomerResponse>> GetCustomersAsync()
     {
