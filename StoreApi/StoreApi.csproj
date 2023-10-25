@@ -19,7 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Core\Orders\" />
+      <Folder Include="Core\Orders\Requests\" />
+      <Folder Include="Core\Orders\Responses\" />
       <Folder Include="Infrastructure\Customer\" />
       <Folder Include="Infrastructure\Order\" />
       <Folder Include="Web\" />
