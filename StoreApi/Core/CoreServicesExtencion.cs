@@ -1,4 +1,5 @@
 ﻿using StoreApi.Core.Customers;
+using StoreApi.Core.Orders;
 
 namespace StoreApi.Core;
 
@@ -11,7 +12,8 @@ public static class CoreServicesExtencion
             throw new ArgumentNullException(nameof(services));
         }
 
-        services.AddScoped<ICustomerRepository,CustomerRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
         return services;
     }
 }
