@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using StoreApi.Core.Customers.Requests;
 using StoreApi.Core.Customers.Responses;
+using StoreApi.Core.Mappings.Extensions;
 using StoreApi.Domain.Customers;
 
 namespace StoreApi.Core.Mappings;
@@ -12,5 +13,6 @@ public class MappingProfile : Profile
         CreateMap<CreateCustomerRequest, Customer>();
         CreateMap<UpdateCustomerRequest, Customer>();
         CreateMap<Customer, CustomerResponse>();
+        this.AddOrdersMappings();
     }
 }

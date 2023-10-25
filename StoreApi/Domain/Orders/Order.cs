@@ -19,7 +19,7 @@ public class Order
 
     [Required]
     [ForeignKey(nameof(Customer))]
-    public int CustomerId { get; set; }
+    public Guid CustomerId { get; set; }
 
     public Customer Customer { get; set; }
 }
