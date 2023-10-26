@@ -27,6 +27,7 @@ namespace StoreApi.Infrastructure.Customer.Migrations
                 {
                     table.PrimaryKey("PK_customers", x => x.Id);
                 });
+ 
         }
 
         /// <inheritdoc />
@@ -34,6 +35,8 @@ namespace StoreApi.Infrastructure.Customer.Migrations
         {
             migrationBuilder.DropTable(
                 name: "customers");
+
+       
         }
     }
 }

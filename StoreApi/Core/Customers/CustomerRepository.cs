@@ -44,7 +44,8 @@ public class CustomerRepository : ICustomerRepository
         {
             throw new Exception("Customer not found");
         }
-         _customerContext.Customers.Remove(customer);
+
+        _customerContext.Customers.Remove(customer);
         await _customerContext.SaveChangesAsync();
     }
 

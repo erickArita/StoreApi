@@ -12,7 +12,7 @@ using StoreApi.Infrastructure.Persistence;
 namespace StoreApi.Infrastructure.Customer.Migrations
 {
     [DbContext(typeof(CustomerDbContext))]
-    [Migration("20231025211018_Initial")]
+    [Migration("20231026014535_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -58,6 +58,62 @@ namespace StoreApi.Infrastructure.Customer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("customers");
+                });
+
+            modelBuilder.Entity("StoreApi.Domain.Orders.OrderProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProduct");
+                });
+
+            modelBuilder.Entity("StoreApi.Domain.Orders.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("StoreApi.Domain.Orders.OrderProduct", b =>
+                {
+                    b.HasOne("StoreApi.Domain.Orders.Product", "Product")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("StoreApi.Domain.Orders.Product", b =>
+                {
+                    b.Navigation("OrderProducts");
                 });
 #pragma warning restore 612, 618
         }

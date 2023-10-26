@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using StoreApi.Domain.Orders;
 
 namespace StoreApi.Infrastructure.Persistence;
 

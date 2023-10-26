@@ -1,5 +1,6 @@
 ﻿using StoreApi.Core.Customers;
 using StoreApi.Core.Orders;
+using StoreApi.Core.Products;
 
 namespace StoreApi.Core;
 
@@ -14,6 +15,7 @@ public static class CoreServicesExtencion
 
         services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
         return services;
     }
 }

@@ -32,6 +32,10 @@ public class OrderRepository : IOrderRepository
         var newOrder = _mapper.Map<Order>(order);
         newOrder.Id = Guid.NewGuid();
         newOrder.CustomerId = customer.Id;
+        var products = _mapper.Map<List<OrderProduct>>(order.OrderProducts, opt => opt.Items["OrderId"] = newOrder.Id);
+
+        newOrder.OrderProducts = products;
+
         await _orderDbContext.Orders.AddAsync(newOrder);
         await _orderDbContext.SaveChangesAsync();
 
